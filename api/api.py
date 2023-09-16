@@ -9,7 +9,7 @@ app = Flask(__name__)
 @app.route('/')
 def index():
     headers = {
-        'Access-Control-Allow-Origin': 'https://jubilant-zebra-547x5w6pj7735j-3000.app.github.dev/'
+        'Access-Control-Allow-Origin': 'http://localhost:3000'
     }
     data = main()
     return (data, 200, headers)

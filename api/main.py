@@ -261,7 +261,7 @@ def main():
 
     txns = [
         (
-            key.strftime("%Y/%m/%d %H:%M:%S"),
+            key.strftime("%Y/%m/%d"),
             round(value[0][0], 2),
             value[0][1],
             round(value[0][4], 2),
@@ -272,7 +272,7 @@ def main():
 
     return {
         'initial': icap,
-        'final': cerebro.broker.getvalue(),
+        'final': round(cerebro.broker.getvalue(), 2),
         'txns': txns,
     }
 

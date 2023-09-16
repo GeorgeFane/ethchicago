@@ -90,7 +90,7 @@ const defaultTheme = createTheme();
 
 export default function Dashboard() {
   const [open, setOpen] = React.useState(true);
-  const [data, setData] = React.useState({});
+  const [data, setData] = React.useState(false);
   const toggleDrawer = () => {
     setOpen(!open);
   };
@@ -106,7 +106,7 @@ export default function Dashboard() {
       .then(response => {
         // handle success
         console.log(response);
-        setData(response);
+        setData(response.data);
       });
   }
 
@@ -187,24 +187,28 @@ export default function Dashboard() {
                 <FormPropsTextFields
                   handleClick={handleClick}
                 />
-                <BasicAccordion />
+                {
+                  !!data && (
+                    <BasicAccordion />
+                  )
+                }
               </Grid>
-              <Grid item xs={12}>
-              </Grid>
-              {/* Chart */}
-              <Grid item xs={12} md={8} lg={9}>
-                <Paper
-                  sx={{
-                    p: 2,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    height: 240,
-                  }}
-                >
-                  <Chart />
-                </Paper>
-              </Grid>
-              {/* Recent Deposits */}
+              {
+                !!data && (
+                  <Grid item xs={12} md={8} lg={9}>
+                    <Paper
+                      sx={{
+                        p: 2,
+                        display: 'flex',
+                        flexDirection: 'column',
+                        height: 240,
+                      }}
+                    >
+                      <Chart />
+                    </Paper>
+                  </Grid>
+                )
+              }
               <Grid item xs={12} md={4} lg={3}>
                 <Paper
                   sx={{
@@ -214,13 +218,16 @@ export default function Dashboard() {
                     height: 240,
                   }}
                 >
-                  <Deposits />
+                  <Deposits
+                    data={data}
+                  />
                 </Paper>
               </Grid>
-              {/* Recent Orders */}
               <Grid item xs={12}>
                 <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-                  <Orders />
+                  <Orders
+                    data={data}
+                  />
                 </Paper>
               </Grid>
             </Grid>
