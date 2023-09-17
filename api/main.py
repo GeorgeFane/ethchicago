@@ -8,6 +8,7 @@ from dateutil.relativedelta import relativedelta
 import io
 import pandas as pd
 import requests
+from datetime import date, timedelta
 
 # ======================================================================================================================
 # CONFIGURATION
@@ -26,8 +27,9 @@ PercSize = 100
 PercTrail = 0.40
 
 # Timeframe for the analysis
-start_date = "2015-04-21"
-end_date = "2020-05-09"
+today = date.today()
+start_date = str(today.replace(year=today.year-5))
+end_date = str(today)
 
 
 # ======================================================================================================================

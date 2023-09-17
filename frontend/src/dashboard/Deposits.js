@@ -27,7 +27,7 @@ export default function Deposits({ data }) {
         {formatter.format(data.final)}
       </Typography>
       <Typography color="text.secondary" sx={{ flex: 1 }}>
-        on 9 May, 2020
+        on {new Date().toJSON().slice(0, 10)}
       </Typography>
       <div>
         Initial value: {formatter.format(data.initial)}

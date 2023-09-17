@@ -37,7 +37,7 @@ export default function Chart({ data }) {
     }
   }
   rows.push(
-    createData('2020/05/09', 1960057.94)
+    createData(new Date().toJSON().slice(0, 10), data.txns[data.txns.length - 1][3])
   )
   console.log(rows)
 
