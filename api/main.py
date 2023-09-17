@@ -10,12 +10,16 @@ import pandas as pd
 import requests
 from datetime import date, timedelta
 import openai
+from dotenv import load_dotenv
+
 # ======================================================================================================================
 # CONFIGURATION
 # ======================================================================================================================
 
+load_dotenv()
+
 # Set your Amberdata API_KEY here
-Amberdata_API_KEY = 'UAT1f4d13dd25813bd39de7e205aca3850c'
+Amberdata_API_KEY = os.getenv('AMBERDATA')
 
 # Set initial capital
 icap = 100000
@@ -28,7 +32,7 @@ PercTrail = 0.40
 
 # Timeframe for the analysis
 today = date.today()
-start_date = str(today.replace(year=today.year-5))
+start_date = str(today.replace(year=today.year - 5))
 end_date = str(today)
 
 
@@ -221,7 +225,7 @@ def main(data_text):
     cerebro = bt.Cerebro(stdstats=False)
 
     # Import OpenAI
-    openai.api_key = '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'
+    openai.api_key = os.getenv('OPENAI')
     response = openai.ChatCompletion.create(
         model="gpt-4",
         messages=[
