@@ -27,7 +27,7 @@ export default function Chart({ data }) {
   }
 
   let rows = [
-    createData('2015/04/21', 100000),
+    // createData('2015/04/21', 100000),
   ]
   for (let [date, amount, price, value] of data.txns) {
     if (value > 0) {
@@ -37,7 +37,7 @@ export default function Chart({ data }) {
     }
   }
   rows.push(
-    createData(new Date().toJSON().slice(0, 10), data.txns[data.txns.length - 1][3])
+    // createData(new Date().toJSON().slice(0, 10), data.txns[data.txns.length - 1][3])
   )
   console.log(rows)
 

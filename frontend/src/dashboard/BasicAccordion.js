@@ -7,7 +7,10 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 import { CodeBlock } from "react-code-blocks";
 
-export default function BasicAccordion() {
+export default function BasicAccordion({ data }) {
+  if (!data) {
+    return <div />;
+  }
   const code = `
   import backtrader as bt
 
@@ -48,7 +51,7 @@ export default function BasicAccordion() {
         </AccordionSummary>
         <AccordionDetails>
           <CodeBlock
-            text={code}
+            text={data.code}
             language='python'
             showLineNumbers={true}
           />

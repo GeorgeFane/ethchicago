@@ -199,7 +199,9 @@ export default function Dashboard() {
                 <div>
                   <Grid container spacing={3}>
                     <Grid item xs={12}>
-                      <BasicAccordion />
+                      <BasicAccordion
+                        data={data}
+                      />
                     </Grid>
                     <Grid item xs={12} md={8} lg={9}>
                       <Paper
