@@ -9,7 +9,7 @@ import io
 import pandas as pd
 import requests
 from datetime import date, timedelta
-
+import openai
 # ======================================================================================================================
 # CONFIGURATION
 # ======================================================================================================================
@@ -189,36 +189,52 @@ def printTradeAnalysis(cerebro, analyzers):
 # STRATEGY
 # ======================================================================================================================
 
-class Strategy(bt.Strategy):
-    params = (
-        ("short_period", 50),
-        ("long_period", 200),
-    )
+# class Strategy(bt.Strategy):
+#     params = (
+#         ("short_period", 50),
+#         ("long_period", 200),
+#     )
 
-    def __init__(self):
-        self.short_ma = bt.indicators.SimpleMovingAverage(
-            self.data.close, period=self.params.short_period
-        )
-        self.long_ma = bt.indicators.SimpleMovingAverage(
-            self.data.close, period=self.params.long_period
-        )
+#     def __init__(self):
+#         self.short_ma = bt.indicators.SimpleMovingAverage(
+#             self.data.close, period=self.params.short_period
+#         )
+#         self.long_ma = bt.indicators.SimpleMovingAverage(
+#             self.data.close, period=self.params.long_period
+#         )
 
-    def next(self):
-        if self.short_ma > self.long_ma and not self.position:
-            # Generate a buy signal and execute the order
-            self.buy()
-        elif self.short_ma < self.long_ma and self.position:
-            # Generate a sell signal and execute the order
-            self.sell()
+#     def next(self):
+#         if self.short_ma > self.long_ma and not self.position:
+#             # Generate a buy signal and execute the order
+#             self.buy()
+#         elif self.short_ma < self.long_ma and self.position:
+#             # Generate a sell signal and execute the order
+#             self.sell()
 
 
 # ======================================================================================================================
 # MAIN
-# ======================================================================================================================
+# ======================================================================================================================    
 
-def main():
+def main(data_text):
     # Create an instance of cerebro
     cerebro = bt.Cerebro(stdstats=False)
+
+    # Import OpenAI
+    openai.api_key = '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'
+    response = openai.ChatCompletion.create(
+        model="gpt-4",
+        messages=[
+            {"role": "system", "content": "You are a technical analyst that will provide a python class that implements a\
+            trading algorithm based on text input from a user using the backtrader python module. The class will follow\
+            the following format and inheret from backtest: Strategy: class Strategy(bt.Strategy): params = () def __init__(self): def next(self):"},
+            {"role": "user", "content": "{}".format(data_text)}, 
+        ]
+    )
+    # Provide me a strategy that takes advantage of moving averages
+    python_code = response['choices'][0]['message']['content'].split(r"```")[1]
+    class_renamed = "class Strategy(" + "(".join(python_code.split("(")[1:])
+    exec(class_renamed, globals(), globals())
 
     # Be selective about what we chart
     # cerebro.addobserver(bt.observers.Broker)

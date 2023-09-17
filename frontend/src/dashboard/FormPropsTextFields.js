@@ -5,7 +5,7 @@ import Button from '@mui/material/Button';
 import SendIcon from '@mui/icons-material/Send';
 import Stack from '@mui/material/Stack';
 
-export default function FormPropsTextFields({ handleClick }) {
+export default function FormPropsTextFields({ handleClick, setText }) {
   return (
     <Box
       sx={{
@@ -21,7 +21,9 @@ export default function FormPropsTextFields({ handleClick }) {
           helperText="ex. Buy and hold"
           margin="normal"
           fullWidth
-
+          onChange={event => {
+            setText(event.target.value)
+          }}
         />
         <Button
           variant="contained"

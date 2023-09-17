@@ -91,18 +91,23 @@ const defaultTheme = createTheme();
 export default function Dashboard() {
   const [open, setOpen] = React.useState(true);
   const [data, setData] = React.useState(false);
+  const [text, setText] = React.useState('');
   const toggleDrawer = () => {
     setOpen(!open);
   };
   const handleClick = () => {
     console.log('backtesting');
+    const data1 = {
+      text,
+    };
     const config = {
       headers: {
         "Content-Type":"application/json",
         "Accept":"application/json",
       }
     };
-    axios.get('http://127.0.0.1:5000/', config)
+    console.log(data1)
+    axios.post('http://127.0.0.1:5000', data1, config)
       .then(response => {
         // handle success
         console.log(response);
@@ -110,7 +115,7 @@ export default function Dashboard() {
       });
   }
 
-  console.log(data)
+  console.log(data, text)
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -186,6 +191,7 @@ export default function Dashboard() {
           <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
             <FormPropsTextFields
               handleClick={handleClick}
+              setText={setText}
             />
             {
               !!data && (
