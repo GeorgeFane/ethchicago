@@ -11,7 +11,7 @@ export default function BasicAccordion() {
   const code = `
   import backtrader as bt
 
-  class CrossoverStrategy(bt.Strategy):
+  class Strategy(bt.Strategy):
       params = (
           ("short_period", 50),
           ("long_period", 200),

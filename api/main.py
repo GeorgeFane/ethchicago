@@ -234,6 +234,8 @@ def main(data_text):
     # Provide me a strategy that takes advantage of moving averages
     python_code = response['choices'][0]['message']['content'].split(r"```")[1]
     class_renamed = "class Strategy(" + "(".join(python_code.split("(")[1:])
+    print(class_renamed)
+
     exec(class_renamed, globals(), globals())
 
     # Be selective about what we chart
