@@ -21,6 +21,7 @@ import { mainListItems, secondaryListItems } from './listItems';
 import Chart from './Chart';
 import Deposits from './Deposits';
 import Orders from './Orders';
+import Risk from './Risk'
 
 import BasicAccordion from './BasicAccordion';
 import FormPropsTextFields from './FormPropsTextFields'
@@ -226,13 +227,23 @@ export default function Dashboard() {
                         <Deposits
                           data={data}
                         />
+                        
                       </Paper>
                     </Grid>
-                    <Grid item xs={12}>
+                    <Grid item  xs={12} md={8} lg={9}>
                       <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
                         <Orders
                           data={data}
                         />
+                        
+                      </Paper>
+                    </Grid>
+                    <Grid item xs={12} md={4} lg={3}>
+                      <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
+                        <Risk
+                          data={data}
+                        />
+                        
                       </Paper>
                     </Grid>
                   </Grid>
@@ -241,6 +252,7 @@ export default function Dashboard() {
             }
             <Copyright sx={{ pt: 4 }} />
           </Container>
+          
         </Box>
       </Box>
     </ThemeProvider>
