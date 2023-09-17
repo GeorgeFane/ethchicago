@@ -110,6 +110,8 @@ export default function Dashboard() {
       });
   }
 
+  console.log(data)
+
   return (
     <ThemeProvider theme={defaultTheme}>
       <Box sx={{ display: 'flex' }}>
@@ -182,55 +184,55 @@ export default function Dashboard() {
         >
           <Toolbar />
           <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-            <Grid container spacing={3}>
-              <Grid item xs={12}>
-                <FormPropsTextFields
-                  handleClick={handleClick}
-                />
-                {
-                  !!data && (
-                    <BasicAccordion />
-                  )
-                }
-              </Grid>
-              {
-                !!data && (
-                  <Grid item xs={12} md={8} lg={9}>
-                    <Paper
-                      sx={{
-                        p: 2,
-                        display: 'flex',
-                        flexDirection: 'column',
-                        height: 240,
-                      }}
-                    >
-                      <Chart />
-                    </Paper>
+            <FormPropsTextFields
+              handleClick={handleClick}
+            />
+            {
+              !!data && (
+                <div>
+                  <Grid container spacing={3}>
+                    <Grid item xs={12}>
+                      <BasicAccordion />
+                    </Grid>
+                    <Grid item xs={12} md={8} lg={9}>
+                      <Paper
+                        sx={{
+                          p: 2,
+                          display: 'flex',
+                          flexDirection: 'column',
+                          height: 240,
+                        }}
+                      >
+                        <Chart
+                          data={data}
+                        />
+                      </Paper>
+                    </Grid>
+                    <Grid item xs={12} md={4} lg={3}>
+                      <Paper
+                        sx={{
+                          p: 2,
+                          display: 'flex',
+                          flexDirection: 'column',
+                          height: 240,
+                        }}
+                      >
+                        <Deposits
+                          data={data}
+                        />
+                      </Paper>
+                    </Grid>
+                    <Grid item xs={12}>
+                      <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
+                        <Orders
+                          data={data}
+                        />
+                      </Paper>
+                    </Grid>
                   </Grid>
-                )
-              }
-              <Grid item xs={12} md={4} lg={3}>
-                <Paper
-                  sx={{
-                    p: 2,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    height: 240,
-                  }}
-                >
-                  <Deposits
-                    data={data}
-                  />
-                </Paper>
-              </Grid>
-              <Grid item xs={12}>
-                <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-                  <Orders
-                    data={data}
-                  />
-                </Paper>
-              </Grid>
-            </Grid>
+                </div>
+              )
+            }
             <Copyright sx={{ pt: 4 }} />
           </Container>
         </Box>

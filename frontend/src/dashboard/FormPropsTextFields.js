@@ -18,7 +18,7 @@ export default function FormPropsTextFields({ handleClick }) {
         <TextField
           id="filled-helperText"
           label="Describe your trading strategy"
-          helperText="ex. 10-day and 50-day crossover"
+          helperText="ex. Buy and hold"
           margin="normal"
           fullWidth
 

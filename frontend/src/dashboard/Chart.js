@@ -8,7 +8,7 @@ function createData(time, amount) {
   return { time, amount };
 }
 
-const data = [
+const data1 = [
   createData('00:00', 0),
   createData('03:00', 300),
   createData('06:00', 600),
@@ -20,15 +20,35 @@ const data = [
   createData('24:00', undefined),
 ];
 
-export default function Chart() {
+export default function Chart({ data }) {
   const theme = useTheme();
+  if (!data) {
+    return <div />;
+  }
+
+  let rows = [
+    createData('2015/04/21', 100000),
+  ]
+  for (let [date, amount, price, value] of data.txns) {
+    if (value > 0) {
+      rows.push(
+        createData(date, value)
+      )
+    }
+  }
+  rows.push(
+    createData('2020/05/09', 1960057.94)
+  )
+  console.log(rows)
 
   return (
     <React.Fragment>
-      <Title>Today</Title>
+      <Title>
+        Realized Portfolio Value
+      </Title>
       <ResponsiveContainer>
         <LineChart
-          data={data}
+          data={rows}
           margin={{
             top: 16,
             right: 16,
@@ -44,19 +64,7 @@ export default function Chart() {
           <YAxis
             stroke={theme.palette.text.secondary}
             style={theme.typography.body2}
-          >
-            <Label
-              angle={270}
-              position="left"
-              style={{
-                textAnchor: 'middle',
-                fill: theme.palette.text.primary,
-                ...theme.typography.body1,
-              }}
-            >
-              Sales ($)
-            </Label>
-          </YAxis>
+          />
           <Line
             isAnimationActive={false}
             type="monotone"
